@@ -1,2 +1,2 @@
 # EzAuth
-An easy way to add Authentication to your app
+An easy API way to add Authentication to your app
