@@ -1,6 +1,7 @@
 TODO: Refactoring [EzAuth]
   TASK: Seperate controller from the routes   [X]
   TASK: Switch from JWT to  sessions
+    TASK: Configure passport [X]
   TASK: Generate token
     INFO: need to be associated with an acces privilege
   TASK: Create a middleware to test if the token is valid
