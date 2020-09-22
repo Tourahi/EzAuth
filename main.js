@@ -10,6 +10,7 @@ const PORT    = 3000 || process.env.PORT;
 
 // To store session in mongoDB
 const MongoStore = require('connect-mongo')(session);
+require('./config/passport');
 
 //Parser
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -50,7 +51,7 @@ app.use(passport.session());
 
 //Router
 app.use('/api/user' , authRoutes);
-app.use('/post' , testRoutes);
+app.use('/test' , testRoutes);
 
 
 
