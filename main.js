@@ -17,7 +17,7 @@ const testRoutes = require('./test/routes/post.js');
 
 connectDB();
 
-//Router middleware
+//Router
 app.use('/api/user' , authRoutes);
 app.use('/post' , testRoutes);
 

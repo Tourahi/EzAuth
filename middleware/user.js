@@ -1,5 +1,7 @@
 const User = require('../model/User.js');
 const bcrypt = require('bcryptjs');
+
+
 const IsUserAlreadyExisting = async (req,res,next) => {
   //Checking if email exists
   const emailExist = await User.findOne({email : req.body.email});
