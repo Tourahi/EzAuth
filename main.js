@@ -18,8 +18,8 @@ app.use(bodyParser.json());
 
 dotenv.config();
 //Routes
-const authRoutes = require('./routes/auth.js');
-const testRoutes = require('./test/routes/post.js');
+const authRoutes = require('./routes/auth.route.js');
+const testRoutes = require('./test/routes/test.js');
 
 connectDB();
 
@@ -52,8 +52,5 @@ app.use(passport.session());
 //Router
 app.use('/api/user' , authRoutes);
 app.use('/test' , testRoutes);
-
-
-
 
 app.listen(PORT , () => console.log(`Server runnig on port ${PORT}`))

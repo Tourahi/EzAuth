@@ -23,7 +23,8 @@ authCtrl.registerCtrl = async (req , res) => {
   const user = new User({
     username : req.body.username,
     email    : req.body.email,
-    password : hashedPassword
+    password : hashedPassword,
+    role     : req.body.role || 'basic'
   });
   try {
     const savedUser = await user.save();

@@ -8,6 +8,7 @@ const RegisterValidationSchema = Joi.object({
                 .required(),
   email : Joi.string().min(6).required().email(),
   password : Joi.string().min(6).required(),
+  role   : Joi.string()
 });
 
 const LoginValidationSchema = Joi.object({
@@ -15,10 +16,8 @@ const LoginValidationSchema = Joi.object({
                 .min(6)
                 .alphanum()
                 .required(),
-  // email : Joi.string().min(6).required().email(),
   password : Joi.string().min(6).required(),
 });
-
 
 module.exports = {
   RegisterValidationSchema,

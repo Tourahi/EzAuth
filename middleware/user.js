@@ -42,9 +42,17 @@ const checkPassword = async (req ,res ,next) => {
   next();
 };
 
+const isAuth = (req , res ,next) => {
+  if(!req.isAuthenticated()) {
+    return res.status(400).send('You are not Authenticated');
+  }
+  next();
+};
+
 
 module.exports = {
   IsUserAlreadyExisting,
   IsUserExisting,
-  checkPassword
+  checkPassword,
+  isAuth,
 }

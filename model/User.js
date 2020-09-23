@@ -22,6 +22,17 @@ const userSchema = new mongoose.Schema({
   createdAt : {
     type : Date,
     default : Date.now
+  },
+  lastModification : {
+    type : Date,
+    default : Date.now
+  },
+  role : {
+    type : String,
+    default : "basic",
+    required : true,
+    min : 6,
+    max : 255
   }
 });
 
