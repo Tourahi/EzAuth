@@ -1,6 +1,6 @@
 const User   = require('../model/User');
 const bcrypt = require('bcryptjs');
-const jwt    = require('jsonwebtoken');
+const validPassword = require('../lib/passwordUtils.js').validPassword;
 
 const authCtrl = {};
 
@@ -14,7 +14,7 @@ const {
 authCtrl.registerCtrl = async (req , res) => {
   //Validate the data
   const {error} =  RegisterValidationSchema.validate(req.body);
-  if(error) return res.status(400).send(error.details[0].message);
+  if(error) return res.status(400).json({err : error.details[0].message});
 
   //Hash password
   const salt = await bcrypt.genSalt(10);
@@ -34,16 +34,29 @@ authCtrl.registerCtrl = async (req , res) => {
   }
 };
 
-authCtrl.loginCtrl = async (req , res) => {
-  //Validate the data
-  const {error} =  LoginValidationSchema.validate(req.body);
-  if(error) return res.status(400).send(error.details[0].message);
+// verifyCallback for the passport strategy
+authCtrl.verifyCallback = (username , password , done) => {
+  User.find({username : username})
+      .then(async (user) => {
+        if(!user) return done(null, false)
+        const isValid =  await validPassword(username , password);
+        if(isValid) {
+          return  done(null, user);
+        }else{
+          return done(null, false);
+        }
+      })
+      .catch((err) => {
+        done(err);
+      });
+};
 
-  //Token assignement
-  const user = await User.findOne( {username : req.body.username} );
-  const token = jwt.sign({ _id : user } , process.env.TOKEN_SECRET);
-  res.header('auth-token' , token).send(token);
-  // res.send("You are loggedin !!");
+authCtrl.loginSuccess = (req , res , next) => {
+  res.status(200).json({ user : req.user});
+};
+
+authCtrl.loginFailure = (req , res , next) => {
+  res.status(400).json({ err : 'You are not Authenticated'});
 }
 
 module.exports = authCtrl;

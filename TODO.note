@@ -3,7 +3,5 @@ TODO: Refactoring [EzAuth]
   TASK: Switch from JWT to  sessions [X]
     TASK: Configure passport [X]
   TASK: Add roles for the users && middlewares [X]
-  TASK: Generate token
-    INFO: need to be associated with an acces privilege
-  TASK: Create a middleware to test if the token is valid
-  TASK: Some of the errors in auth.js need to be returned in JSON format
+  TASK: Some of the errors in auth.js need to be returned in JSON format [X]
+  TASK: Start dashboard dev.

@@ -7,7 +7,11 @@ const {
   checkPassword
 } = require('../middleware/user.js');
 
-const {registerCtrl , loginCtrl} = require('../controllers/auth.controller.js');
+const {
+  registerCtrl,
+  loginSuccess,
+  loginFailure
+} = require('../controllers/auth.controller.js');
 
 //Register
 router.post('/register',IsUserAlreadyExisting , registerCtrl);
@@ -16,8 +20,14 @@ router.post('/register',IsUserAlreadyExisting , registerCtrl);
 router.post('/login',IsUserExisting,checkPassword
             ,passport.authenticate('local',
             {
-              failureRedirect: '/test/login-failure',
-              successRedirect: '/test/login-success'
+              failureRedirect: '/api/user/login-failure',
+              successRedirect: '/api/user/login-success'
             }));
+
+//loginSuccess
+router.get('/login-success',loginSuccess);
+//loginFailure
+//if unexpected behavior otherwise it shall not run
+router.get('/login-failure',loginFailure);
 
 module.exports = router;
